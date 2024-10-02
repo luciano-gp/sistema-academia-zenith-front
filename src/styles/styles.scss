@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+@use './_theme.scss';
+
+@use '../app/layout/header/header.component.scss';
+
+@include mat.core();
+
+:root {
+    --primary: var(--sys-primary-fixed);
+
+    --dark-background: var(--sys-surface-container);
+    --dark-full: #000;
+
+    --white: #fff;
+}
+
+html, body { 
+    @include mat.all-component-themes(theme.$dark-theme);
+    @include mat.system-level-colors(theme.$dark-theme);
+    background-color: var(--dark-background);
+    height: calc(100% - 120px);
+    margin-top: 120px;
+    color: var(--white);
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

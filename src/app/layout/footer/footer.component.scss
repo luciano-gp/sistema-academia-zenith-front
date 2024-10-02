@@ -1,0 +1,13 @@
+:host {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--dark-full);
+    color: var(--white);
+    padding: 20px;
+}

@@ -1,0 +1,16 @@
+:host {
+    background-color: var(--dark-full);
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+img {
+    width: 500px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0 auto;
+}
