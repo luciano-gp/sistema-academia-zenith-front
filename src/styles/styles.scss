@@ -18,8 +18,9 @@ html, body {
     @include mat.all-component-themes(theme.$dark-theme);
     @include mat.system-level-colors(theme.$dark-theme);
     background-color: var(--dark-background);
-    height: calc(100% - 120px);
+    height: calc(100% - 120px - 120px);
     margin-top: 120px;
+    margin-bottom: 120px;
     color: var(--white);
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

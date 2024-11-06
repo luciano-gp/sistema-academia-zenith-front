@@ -1,5 +1,7 @@
 export interface IUser {
-    id: number | null;
+    id: number;
     email: string;
-    senha: string;
+    senha?: string;
+    tipo: number;
+    ativo: boolean;
 }

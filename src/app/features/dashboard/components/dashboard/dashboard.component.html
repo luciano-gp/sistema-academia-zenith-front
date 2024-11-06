@@ -1,1 +1,78 @@
-<p>dashboard works!</p>
+<p class="title">
+  {{ title() }}
+</p>
+
+<section class="charts-container">
+    <mat-card appearance="raised" class="members-chart">
+        <mat-card-content>
+            <canvas
+                baseChart
+                [datasets]="enrolledChartData"
+                [labels]="enrolledChartLabels"
+                [options]="enrolledChartOptions"
+                type="line"
+            ></canvas>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="raised" class="defaulters-chart">
+        <mat-card-content>
+            <canvas 
+                baseChart
+                [datasets]="defaultersChartData"
+                [labels]="defaultersChartLabels"
+                [options]="defaultersChartOptions"
+                type="doughnut">
+            </canvas>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="raised" class="classes-chart">
+        <mat-card-content>
+            <canvas 
+                baseChart
+                [datasets]="classesChartData"
+                [labels]="classesChartLabels"
+                [options]="classesChartOptions"
+                type="doughnut">
+            </canvas>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="raised" class="days-chart">
+        <mat-card-content>
+            <canvas 
+                baseChart
+                [datasets]="daysChartData"
+                [labels]="daysChartLabels"
+                [options]="daysChartOptions"
+                type="bar">
+            </canvas>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="raised" class="schedule">
+        <mat-card-content class="schedule-container">
+            <mat-card appearance="outlined" class="schedule-card">
+                <mat-card-content>
+                    <p>Zumba - João da Silva</p>
+                    <p>Hoje</p>
+                    <p>Horário: 09:00 - 10:00</p>
+                    <p>13/15 inscritos</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined" class="schedule-card">
+                <mat-card-content>
+                    <p>Zumba - João da Silva</p>
+                    <p>Amanhã</p>
+                    <p>Horário: 09:00 - 10:00</p>
+                    <p>10/15 inscritos</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined" class="schedule-card">
+                <mat-card-content>
+                    <p>Zumba - João da Silva</p>
+                    <p>08/11/2024</p>
+                    <p>Horário: 09:00 - 10:00</p>
+                    <p>7/15 inscritos</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+    </mat-card>
+</section>

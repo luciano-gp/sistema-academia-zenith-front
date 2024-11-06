@@ -1,0 +1,107 @@
+.title {
+    font-size: 24px;
+    text-align: center;
+}
+
+mat-card-content {
+    height: 300px;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.schedule-card {
+    height: 30%;
+    background-color: var(--sys-primary-container);
+
+    mat-card-content {
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        p {
+            margin: 0;
+            font-size: 12px;
+
+            &:first-child {
+                text-align: center;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                text-decoration: underline;
+                text-align: end;
+            }
+        }
+    }
+}
+
+.charts-container {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    @media screen and (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
+
+    .members-chart {
+        grid-column: 1 / span 2;
+        
+        @media screen and (max-width: 500px) {
+            grid-column: 1;
+        }
+
+    }
+
+    .defaulters-chart {
+        grid-column: 3;
+
+        @media screen and (max-width: 1024px) {
+            grid-column: 1;
+        }
+    }
+    
+    .classes-chart {
+        grid-column: 1;
+
+        @media screen and (max-width: 1024px) {
+            grid-column: 2;
+        }
+        
+        @media screen and (max-width: 500px) {
+            grid-column: 1;
+        }
+    }
+    
+    .days-chart {
+        grid-column: 2;
+
+        @media screen and (max-width: 1024px) {
+            grid-column: 1;
+        }
+    }
+    
+    .schedule {
+        grid-column: 3;
+
+        @media screen and (max-width: 1024px) {
+            grid-column: 2;
+        }
+        
+        @media screen and (max-width: 500px) {
+            grid-column: 1;
+        }
+    }
+}

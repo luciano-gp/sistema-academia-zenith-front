@@ -1,12 +1,14 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from "@angular/router";
+import { UserService } from "../../../../core/services/user.service";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -17,6 +19,9 @@ import { AuthService } from "../../services/auth.service";
   styleUrl: "./login.component.scss",
 })
 export class LoginComponent {
+  private _snackBar = inject(MatSnackBar);
+  private _userService = inject(UserService);
+
   protected loginForm!: FormGroup;
 
   constructor(
@@ -40,12 +45,17 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       try {
         const { email, password } = this.loginForm.value;
-        console.log("🚀 ~ LoginComponent ~ login ~ password:", password)
-        console.log("🚀 ~ LoginComponent ~ login ~ email:", email)
-        await this.authService.login(email, password);
-        this.router.navigate(["/dashboard"]);
-      } catch (error) {
-        console.error(error);
+        const user = await this.authService.login(email, password);
+
+        if (user?.user?.id) {
+          this._userService.setUser = user.user;
+
+          this.router.navigateByUrl("/dashboard");
+        }
+
+        this._snackBar.open(user.message);
+      } catch (error: any) {
+        this._snackBar.open(error?.error?.message || 'Algo inesperado aconteceu!');   
       }
     }
   }

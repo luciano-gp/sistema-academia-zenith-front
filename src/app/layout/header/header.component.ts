@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  private _userService = inject(UserService);
 
+  protected hasUser = this._userService.hasUser;
 }
