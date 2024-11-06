@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { ILoginResponse } from '../../../core/interfaces/responses/ILoginResponse';
 import { PersonService } from '../../../core/services/person.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { PersonService } from '../../../core/services/person.service';
 export class AuthService {
   private http = inject(HttpClient);
   private _personService = inject(PersonService);
+  private _userService = inject(UserService);
 
   private apiUrl = environment.apiUrl;
 
@@ -27,7 +29,8 @@ export class AuthService {
 
     if (user.user) { 
       localStorage.setItem('userZenith', JSON.stringify({ email, senha }));
-      
+
+      this._userService.setUser = user.user;
       this._personService.setPerson = await this._personService.getPersonById(user.user.id);
     }
 

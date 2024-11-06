@@ -1,17 +1,31 @@
 :host {
-    background-color: var(--dark-full);
     display: flex;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999999999;
+}
+
+mat-toolbar {
+    height: 120px;
 }
 
 img {
     width: 500px;
     height: 120px;
+    margin-left: -100px;
     object-fit: cover;
     border-radius: 5px;
-    margin: 0 auto;
+    @media screen and (max-width: 600px) {
+        margin-left: -50px;
+        width: 300px;
+        height: 80px;
+    }
+}
+
+.menu {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
 }

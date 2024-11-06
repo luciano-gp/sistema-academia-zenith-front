@@ -24,3 +24,19 @@ html, body {
     color: var(--white);
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a, a:hover, a:visited, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    mat-form-field {
+        width: 100%;
+    }
+}

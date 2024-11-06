@@ -1,1 +1,68 @@
-<img src="logo.png" />
+<mat-toolbar>
+  @if (hasUser()) {
+    <span>
+        <img src="logo.png" />
+    </span>
+    
+    <span class="menu">
+        <a [routerLink]="'/dashboard'">
+            <button mat-icon-button>
+                <mat-icon>home</mat-icon>
+            </button>
+        </a>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item [matMenuTriggerFor]="admin">
+                Administração
+            </button>
+            <button mat-menu-item [matMenuTriggerFor]="gym">
+                Academia
+            </button>
+
+            <mat-menu #admin="matMenu" xPosition="before">
+                <a [routerLink]="'/planos'">
+                    <button mat-menu-item>
+                        Planos
+                    </button>
+                </a>
+                <a [routerLink]="'/pessoas'">
+                    <button mat-menu-item>
+                        Pessoas
+                    </button>
+                </a>
+            </mat-menu>
+
+            <mat-menu #gym="matMenu" xPosition="before">
+                <button mat-menu-item [matMenuTriggerFor]="classes">Aulas</button>
+                <a [routerLink]="'/exercicios'">
+                    <button mat-menu-item>
+                        Exercícios
+                    </button>
+                </a>
+                <a [routerLink]="'/treinos'">
+                    <button mat-menu-item>
+                        Treinos
+                    </button>
+                </a>
+            </mat-menu>
+
+            <mat-menu #classes="matMenu" xPosition="before">
+                <a [routerLink]="'/aulas'">
+                    <button mat-menu-item>
+                        Aulas
+                    </button>
+                </a>
+                <a [routerLink]="'/agendamentos'">
+                    <button mat-menu-item>
+                        Agendamentos
+                    </button>
+                </a>
+            </mat-menu>
+        </mat-menu>
+    </span>
+  } @else {
+    <img src="logo.png" />
+  }
+</mat-toolbar>

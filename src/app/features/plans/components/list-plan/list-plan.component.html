@@ -1,0 +1,57 @@
+<div class="container">
+  
+  <section class="top-container">
+    <h2>Planos</h2>
+    <a routerLink="/planos/novo" mat-stroked-button>Criar Novo Plano</a>
+  </section>
+
+  <section class="mat-elevation-z8 table-container" tabindex="0">
+    <table mat-table [dataSource]="dataSource" res>
+      <ng-container matColumnDef="titulo" sticky>
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let plan">{{ plan.titulo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dt_inicio">
+        <th mat-header-cell *matHeaderCellDef>Data de Início</th>
+        <td mat-cell *matCellDef="let plan">
+          {{ plan.dt_inicio | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="dt_fim">
+        <th mat-header-cell *matHeaderCellDef>Data de Fim</th>
+        <td mat-cell *matCellDef="let plan">
+          {{ plan.dt_fim | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="valor_mensal">
+        <th mat-header-cell *matHeaderCellDef>Valor Mensal</th>
+        <td mat-cell *matCellDef="let plan">
+          {{ plan.valor_mensal | currency : "BRL" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="modelo_contrato">
+        <th mat-header-cell *matHeaderCellDef>Modelo de Contrato</th>
+        <td mat-cell *matCellDef="let plan">{{ plan.modelo_contrato }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let plan">
+          <div class="actions-container">
+            <a [routerLink]="'/planos/editar/' + plan.id" mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </a>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="delete(plan)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </section>
+</div>

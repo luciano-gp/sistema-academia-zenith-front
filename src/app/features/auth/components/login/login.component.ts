@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from "@angular/router";
-import { UserService } from "../../../../core/services/user.service";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -20,7 +19,6 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginComponent {
   private _snackBar = inject(MatSnackBar);
-  private _userService = inject(UserService);
 
   protected loginForm!: FormGroup;
 
@@ -48,14 +46,12 @@ export class LoginComponent {
         const user = await this.authService.login(email, password);
 
         if (user?.user?.id) {
-          this._userService.setUser = user.user;
-
           this.router.navigateByUrl("/dashboard");
         }
 
         this._snackBar.open(user.message);
       } catch (error: any) {
-        this._snackBar.open(error?.error?.message || 'Algo inesperado aconteceu!');   
+        this._snackBar.open(error?.error?.message || 'Algo inesperado aconteceu!');
       }
     }
   }
