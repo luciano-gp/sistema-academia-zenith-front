@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { BaseChartDirective } from 'ng2-charts';
-import { PersonService } from '../../../../core/services/person.service';
+import { PersonService } from '../../../persons/services/person.service';
 import { ClassesChartService } from '../../services/classes-chart.service';
 import { DaysChartService } from '../../services/days-chart.service';
 import { DefaultersChartService } from '../../services/defaulters-chart.service';

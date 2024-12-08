@@ -50,6 +50,22 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "pessoas/novo",
+    loadComponent: () =>
+      import(
+        "./features/persons/components/create-person/create-person.component"
+      ).then((m) => m.CreatePersonComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "pessoas/editar/:id",
+    loadComponent: () =>
+      import(
+        "./features/persons/components/edit-person/edit-person.component"
+      ).then((m) => m.EditPersonComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: "aulas",
     loadComponent: () =>
       import(

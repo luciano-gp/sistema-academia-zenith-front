@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h2>{{ plan()?.id ? 'Editar' : 'Novo' }} Plano</h2>
+  <h2>{{ plan()?.id ? "Editar" : "Novo" }} Plano</h2>
 
   <form [formGroup]="planForm" (submit)="onSubmit()">
     <!-- Título -->
@@ -38,34 +38,36 @@
       </mat-form-field>
 
       <!-- Data de Fim -->
-      <mat-form-field>
+      <mat-form-field [class.disabled-form-field]="!planForm.get('dt_inicio')?.value">
         <mat-label>Data de Fim</mat-label>
         <input
           matInput
           [matDatepicker]="endPicker"
           formControlName="dt_fim"
           placeholder="Escolha a data de fim"
+          [min]="planForm.get('dt_inicio')?.value"
+          [readonly]="!planForm.get('dt_inicio')?.value"
         />
         <mat-datepicker-toggle
           matSuffix
+          [disabled]="!planForm.get('dt_inicio')?.value"
           [for]="endPicker"
         ></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
-        <mat-error *ngIf="planForm.get('dt_fim')?.invalid">
-          A data de fim é obrigatória.
-        </mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <!-- Número de Meses de Contrato -->
-      <mat-form-field>
+      <mat-form-field [class.disabled-form-field]="!planForm.get('dt_inicio')?.value">
         <mat-label>Meses de Contrato</mat-label>
         <input
           matInput
           type="number"
           formControlName="numero_meses_contrato"
           placeholder="Número de meses"
+          min="1"
+          [readonly]="!planForm.get('dt_inicio')?.value"
         />
         <mat-error *ngIf="planForm.get('numero_meses_contrato')?.invalid">
           Insira um valor válido para o número de meses.
@@ -77,9 +79,14 @@
         <mat-label>Valor Mensal</mat-label>
         <input
           matInput
-          type="number"
+          type="text"
           formControlName="valor_mensal"
           placeholder="Valor mensal"
+          min="0"
+          prefix="R$ "
+          mask="separator.2"
+          thousandSeparator="."
+          [leadZero]="true"
         />
         <mat-error *ngIf="planForm.get('valor_mensal')?.invalid">
           Insira um valor válido para o valor mensal.
@@ -111,9 +118,11 @@
           type="number"
           formControlName="diarias"
           placeholder="Número de diárias"
+          min="1"
+          max="7"
         />
         <mat-error *ngIf="planForm.get('diarias')?.invalid">
-          Insira um valor válido para as diárias.
+          Insira um valor válido para as diárias (1 - 7).
         </mat-error>
       </mat-form-field>
     </div>
@@ -135,7 +144,9 @@
 
     <div class="buttons-container">
       <button type="submit" mat-flat-button>Salvar</button>
-      <button mat-stroked-button color="warn" (click)="onDelete()">Excluir</button>
+      <button *ngIf="plan()?.id" mat-stroked-button color="warn" (click)="onDelete()">
+        Excluir
+      </button>
     </div>
   </form>
 </div>

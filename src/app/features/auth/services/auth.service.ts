@@ -3,8 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { ILoginResponse } from '../../../core/interfaces/responses/ILoginResponse';
-import { PersonService } from '../../../core/services/person.service';
 import { UserService } from '../../../core/services/user.service';
+import { PersonService } from '../../persons/services/person.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class AuthService {
       localStorage.setItem('userZenith', JSON.stringify({ email, senha }));
 
       this._userService.setUser = user.user;
-      this._personService.setPerson = await this._personService.getPersonById(user.user.id);
+      this._personService.setPerson = await this._personService.getPersonByUserId(user.user.id!);
     }
 
     return user;

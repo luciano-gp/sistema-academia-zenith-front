@@ -12,6 +12,14 @@ export class PlanService {
 
   private apiUrl = environment.apiUrl;
 
+  async create (plan: IPlan) {
+    return await lastValueFrom(this.http.post(`${this.apiUrl}/plano/add`, plan));
+  }
+
+  async edit (plan: IPlan) {
+    return await lastValueFrom(this.http.put(`${this.apiUrl}/plano/edit/${plan.id}`, plan));
+  }
+
   async getById(id: string) {
     return await lastValueFrom(this.http.get<IPlan>(`${this.apiUrl}/plano/view/${id}`));
   }

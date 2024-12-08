@@ -6,6 +6,7 @@ import localePt from '@angular/common/locales/pt';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { registerLocaleData } from '@angular/common';
 import { routes } from './app.routes';
@@ -22,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideAnimationsAsync(),
     provideHttpClient(), 
-    provideCharts(withDefaultRegisterables()
-  ),
+    provideEnvironmentNgxMask(),
+    provideCharts(withDefaultRegisterables()),
   ]
 };

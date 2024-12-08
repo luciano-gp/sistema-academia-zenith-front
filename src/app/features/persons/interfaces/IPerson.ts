@@ -9,6 +9,9 @@ export interface IPerson {
     endereco: string;
     telefone: string;
     genero?: string;
+    email?: string;
     usuario: IUser;
     cidade: ICity;
+    ref_usuario: number;
+    ref_cidade: number;
 }
