@@ -66,6 +66,30 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "assinaturas",
+    loadComponent: () =>
+      import(
+        "./features/subscriptions/components/list-subscription/list-subscription.component"
+      ).then((m) => m.ListSubscriptionComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "assinaturas/novo",
+    loadComponent: () =>
+      import(
+        "./features/subscriptions/components/create-subscription/create-subscription.component"
+      ).then((m) => m.CreateSubscriptionComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "assinaturas/editar/:id",
+    loadComponent: () =>
+      import(
+        "./features/subscriptions/components/edit-subscription/edit-subscription.component"
+      ).then((m) => m.EditSubscriptionComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: "aulas",
     loadComponent: () =>
       import(

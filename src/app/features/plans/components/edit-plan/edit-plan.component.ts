@@ -30,7 +30,7 @@ export class EditPlanComponent {
   onDelete() {
     if (this.plan()?.id) {
       this._planService.delete(this.plan().id!);
-      this._router.navigateByUrl('/plans');
+      this._router.navigateByUrl('/planos');
     }
   }
 

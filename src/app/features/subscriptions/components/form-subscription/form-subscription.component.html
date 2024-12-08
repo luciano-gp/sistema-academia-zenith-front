@@ -1,0 +1,132 @@
+<div class="form-container">
+  <h2>{{ subscription()?.id ? "Editar" : "Nova" }} Assinatura</h2>
+
+  <form [formGroup]="subscriptionForm" (submit)="onSubmit()">
+    <!-- Data de Contratação e Data Final-->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Data de Contratação</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startPicker"
+          formControlName="dt_contratacao"
+          placeholder="Escolha a data de contratação"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+        <mat-error *ngIf="subscriptionForm.get('dt_contratacao')?.invalid">
+          A data de contratação é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data Final</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endPicker"
+          formControlName="dt_final"
+          placeholder="Escolha a data final"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Pessoa -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Pessoa</mat-label>
+        <input
+          type="text"
+          placeholder="Digite para buscar"
+          matInput
+          formControlName="pessoa"
+          [matAutocomplete]="autoPerson"
+          (input)="filterPersons($event)"
+        />
+        <mat-autocomplete
+          #autoPerson="matAutocomplete"
+          [displayWith]="displayPerson"
+          (optionSelected)="selectPersons($event.option.value)"
+        >
+          @for (person of filteredPersons; track person.id) {
+          <mat-option [value]="person">
+            {{ person.nome }}
+          </mat-option>
+          }
+        </mat-autocomplete>
+        <mat-error *ngIf="subscriptionForm.get('pessoa')?.invalid">
+          Selecione uma pessoa.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Plano e Forma de Pagamento-->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Plano</mat-label>
+        <mat-select formControlName="ref_plano">
+          @for (plan of plans; track plan.id) {
+          <mat-option [value]="plan.id">{{ plan.titulo }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="subscriptionForm.get('plano')?.invalid">
+          Selecione um plano.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Forma de Pagamento</mat-label>
+        <mat-select formControlName="ref_forma_pagamento">
+          @for (payMethod of payMethods(); track payMethod.id) {
+          <mat-option [value]="payMethod.id">{{ payMethod.metodo }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Pessoa Indicação -->
+    <div class="form-row">
+        <mat-form-field>
+            <mat-label>Quem indicou</mat-label>
+            <input
+              type="text"
+              placeholder="Digite para buscar"
+              matInput
+              formControlName="pessoa_indicacao"
+              [matAutocomplete]="autoIndicationPerson"
+              (input)="filterPersons($event)"
+            />
+            <mat-autocomplete
+              #autoIndicationPerson="matAutocomplete"
+              [displayWith]="displayPerson"
+              (optionSelected)="selectIndicationPersons($event.option.value)"
+            >
+              @for (person of filteredPersons; track person.id) {
+              <mat-option [value]="person">
+                {{ person.nome }}
+              </mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+    </div>
+
+    <!-- Botões -->
+    <div class="buttons-container">
+      <button type="submit" mat-flat-button color="primary">Salvar</button>
+      <button
+        *ngIf="subscription()?.id"
+        mat-stroked-button
+        color="warn"
+        (click)="onDelete()"
+      >
+        Excluir
+      </button>
+    </div>
+  </form>
+</div>
