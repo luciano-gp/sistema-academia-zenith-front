@@ -35,7 +35,6 @@ export class EditSubscriptionComponent {
   }
 
   async onSubmit(subscription: ISubscription) {
-    console.log("🚀 ~ EditSubscriptionComponent ~ onSubmit ~ subscription:", subscription)
     try {
       await this._subscriptionService.edit(subscription);
       this._snackbar.open('Pessoa editada com sucesso', 'Fechar', { duration: 5000 });

@@ -121,4 +121,20 @@ export const routes: Routes = [
       ).then((m) => m.ListTrainingComponent),
     canActivate: [AuthGuard],
   },
+  {
+    path: "treinos/novo",
+    loadComponent: () =>
+      import(
+        "./features/trainings/components/create-training/create-training.component"
+      ).then((m) => m.CreateTrainingComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "treinos/editar/:id",
+    loadComponent: () =>
+      import(
+        "./features/trainings/components/edit-training/edit-training.component"
+      ).then((m) => m.EditTrainingComponent),
+    canActivate: [AuthGuard],
+  },
 ];

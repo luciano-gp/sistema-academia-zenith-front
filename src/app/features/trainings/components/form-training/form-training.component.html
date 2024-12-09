@@ -1,1 +1,85 @@
-<p>form-training works!</p>
+<div class="form-container">
+  <h2>{{ training()?.id ? "Editar" : "Novo" }} Treino</h2>
+
+  <form [formGroup]="trainingForm" (submit)="onSubmit()">
+    <!-- Descrição do Treino -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Descrição</mat-label>
+        <input
+          matInput
+          formControlName="descricao"
+          placeholder="Descrição do treino"
+        />
+        <mat-error *ngIf="trainingForm.get('descricao')?.invalid">
+          A descrição é obrigatória.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Lista de Exercícios -->
+    <div class="exercise-list">
+      <h3>Exercícios</h3>
+      @for (exercise of exercises; track exercise.id) {
+      <div class="exercise-item">
+        <mat-checkbox
+          [checked]="isExerciseSelected(exercise.id)"
+          (change)="toggleExerciseSelection(exercise.id, $event.checked)"
+        >
+          {{ exercise.nome }}
+        </mat-checkbox>
+        @if (isExerciseSelected(exercise.id)) {
+        <div class="exercise-config">
+          <mat-form-field>
+            <mat-label>Número de Séries</mat-label>
+            <input
+              type="number"
+              matInput
+              [formControl]="exerciseConfigs[exercise.id].controls.num_series"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Número de Repetições</mat-label>
+            <input
+              type="number"
+              matInput
+              [formControl]="exerciseConfigs[exercise.id].controls.num_repeticoes"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Carga</mat-label>
+            <input
+              type="number"
+              matInput
+              [formControl]="exerciseConfigs[exercise.id].controls.carga"
+            />
+          </mat-form-field>
+        </div>
+        <div class="exercise-config">
+          <mat-form-field>
+            <mat-label>Observação</mat-label>
+            <textarea
+              matInput
+              [formControl]="exerciseConfigs[exercise.id].controls.observacao"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- Botões -->
+    <div class="buttons-container">
+      <button type="submit" mat-flat-button color="primary">Salvar</button>
+      <button
+        *ngIf="training()?.id"
+        mat-stroked-button
+        color="warn"
+        (click)="onDelete()"
+      >
+        Excluir
+      </button>
+    </div>
+  </form>
+</div>

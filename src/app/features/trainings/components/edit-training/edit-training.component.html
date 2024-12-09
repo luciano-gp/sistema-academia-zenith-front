@@ -1,1 +1,5 @@
-<p>edit-training works!</p>
+<app-form-training
+  [training]="training"
+  (done)="onSubmit($event)"
+  (delete)="onDelete()"
+></app-form-training>
