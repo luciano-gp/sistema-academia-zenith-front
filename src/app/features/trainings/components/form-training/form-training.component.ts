@@ -38,21 +38,41 @@ export class FormTrainingComponent {
   training = input<ITraining>();
   done = output<ITraining>();
   delete = output<void>();
-
+  
   trainingForm: FormGroup;
   exercises: IExercise[] = [];
   exerciseConfigs: Record<number, FormGroup<ExerciseConfig>> = {};
-
+  
   constructor() {
     this.trainingForm = this._fb.group({
       descricao: ['', Validators.required],
     });
     this._loadExercises();
   }
-
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['training'] && this.training) {
-      this.trainingForm.patchValue(this.training);
+      this.trainingForm.patchValue(this.training()!);
+
+      if (this.training()?.exercicio?.length) {
+        this.training()?.exercicio?.forEach((exercise) => {
+          if (!exercise._joinData || !exercise.id) return
+
+          const config = exercise._joinData;
+          const formGroup = this.exerciseConfigs[exercise.id];
+    
+          if (formGroup) {
+            formGroup.patchValue({
+              selected: true,
+              num_series: config.num_series,
+              num_repeticoes: config.num_repeticoes,
+              carga: config.carga,
+              observacao: config.observacao,
+            });
+            formGroup.enable();
+          }
+        });
+      }
     }
   }
 
@@ -66,7 +86,7 @@ export class FormTrainingComponent {
       this.exerciseConfigs[exercise.id] = this._fb.group<ExerciseConfig>({
         selected: this._fb.control(false),
         num_series: this._fb.control(null, Validators.required),
-        num_repeticoes: this._fb.control(null),
+        num_repeticoes: this._fb.control(null, Validators.required),
         carga: this._fb.control(null),
         observacao: this._fb.control(''),
       });
@@ -98,9 +118,9 @@ export class FormTrainingComponent {
         } as ITrainingExerciseConfig));
 
       const training: ITraining = {
-        ...this.training,
+        ...this.training(),
         descricao: formValue.descricao,
-        exercicios: selectedExercises,
+        exercicio: selectedExercises,
       };
 
       this.done.emit(training);
