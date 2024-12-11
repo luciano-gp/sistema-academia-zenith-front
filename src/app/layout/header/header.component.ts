@@ -4,8 +4,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
+import { IUser } from '../../features/auth/interfaces/IUser';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,13 @@ import { UserService } from '../../core/services/user.service';
 })
 export class HeaderComponent {
   private _userService = inject(UserService);
+  private _router = inject(Router);
 
   protected hasUser = computed(() => this._userService.hasUser);
+  protected user = computed(() => this._userService.getUser);
+
+  logout() {
+    this._userService.setUser = {} as IUser;
+    this._router.navigateByUrl('/');
+  }
 }

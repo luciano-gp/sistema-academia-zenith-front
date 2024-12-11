@@ -2,77 +2,146 @@
   {{ title() }}
 </p>
 
+@if (person().usuario?.tipo == 1) {
 <section class="charts-container">
-    <mat-card appearance="raised" class="members-chart">
+  <mat-card appearance="raised" class="members-chart">
+    <mat-card-content>
+      <canvas
+        baseChart
+        [datasets]="enrolledChartData"
+        [labels]="enrolledChartLabels"
+        [options]="enrolledChartOptions"
+        type="line"
+      ></canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="raised" class="defaulters-chart">
+    <mat-card-content>
+      <canvas
+        baseChart
+        [datasets]="defaultersChartData"
+        [labels]="defaultersChartLabels"
+        [options]="defaultersChartOptions"
+        type="doughnut"
+      >
+      </canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="raised" class="classes-chart">
+    <mat-card-content>
+      <canvas
+        baseChart
+        [datasets]="classesChartData"
+        [labels]="classesChartLabels"
+        [options]="classesChartOptions"
+        type="doughnut"
+      >
+      </canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="raised" class="days-chart">
+    <mat-card-content>
+      <canvas
+        baseChart
+        [datasets]="daysChartData"
+        [labels]="daysChartLabels"
+        [options]="daysChartOptions"
+        type="bar"
+      >
+      </canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="raised" class="schedule">
+    <mat-card-content class="schedule-container">
+      <mat-card appearance="outlined" class="schedule-card">
         <mat-card-content>
-            <canvas
-                baseChart
-                [datasets]="enrolledChartData"
-                [labels]="enrolledChartLabels"
-                [options]="enrolledChartOptions"
-                type="line"
-            ></canvas>
+          <p>Zumba - João da Silva</p>
+          <p>Hoje</p>
+          <p>Horário: 09:00 - 10:00</p>
+          <p>13/15 inscritos</p>
         </mat-card-content>
-    </mat-card>
-    <mat-card appearance="raised" class="defaulters-chart">
+      </mat-card>
+      <mat-card appearance="outlined" class="schedule-card">
         <mat-card-content>
-            <canvas 
-                baseChart
-                [datasets]="defaultersChartData"
-                [labels]="defaultersChartLabels"
-                [options]="defaultersChartOptions"
-                type="doughnut">
-            </canvas>
+          <p>Zumba - João da Silva</p>
+          <p>Amanhã</p>
+          <p>Horário: 09:00 - 10:00</p>
+          <p>10/15 inscritos</p>
         </mat-card-content>
-    </mat-card>
-    <mat-card appearance="raised" class="classes-chart">
+      </mat-card>
+      <mat-card appearance="outlined" class="schedule-card">
         <mat-card-content>
-            <canvas 
-                baseChart
-                [datasets]="classesChartData"
-                [labels]="classesChartLabels"
-                [options]="classesChartOptions"
-                type="doughnut">
-            </canvas>
+          <p>Zumba - João da Silva</p>
+          <p>08/11/2024</p>
+          <p>Horário: 09:00 - 10:00</p>
+          <p>7/15 inscritos</p>
         </mat-card-content>
-    </mat-card>
-    <mat-card appearance="raised" class="days-chart">
-        <mat-card-content>
-            <canvas 
-                baseChart
-                [datasets]="daysChartData"
-                [labels]="daysChartLabels"
-                [options]="daysChartOptions"
-                type="bar">
-            </canvas>
-        </mat-card-content>
-    </mat-card>
-    <mat-card appearance="raised" class="schedule">
-        <mat-card-content class="schedule-container">
-            <mat-card appearance="outlined" class="schedule-card">
-                <mat-card-content>
-                    <p>Zumba - João da Silva</p>
-                    <p>Hoje</p>
-                    <p>Horário: 09:00 - 10:00</p>
-                    <p>13/15 inscritos</p>
-                </mat-card-content>
-            </mat-card>
-            <mat-card appearance="outlined" class="schedule-card">
-                <mat-card-content>
-                    <p>Zumba - João da Silva</p>
-                    <p>Amanhã</p>
-                    <p>Horário: 09:00 - 10:00</p>
-                    <p>10/15 inscritos</p>
-                </mat-card-content>
-            </mat-card>
-            <mat-card appearance="outlined" class="schedule-card">
-                <mat-card-content>
-                    <p>Zumba - João da Silva</p>
-                    <p>08/11/2024</p>
-                    <p>Horário: 09:00 - 10:00</p>
-                    <p>7/15 inscritos</p>
-                </mat-card-content>
-            </mat-card>
-        </mat-card-content>
-    </mat-card>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </section>
+} @else {
+<div class="treinos-container">
+  <h2>Meus Treinos</h2>
+  <div class="treinos-lista">
+    @if (person()?.treino?.length) { 
+    @for (treino of person()?.treino; track
+    treino.id) {
+    <mat-card class="treino-card">
+      <mat-card-header>
+        <mat-card-title>{{ treino.descricao }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Exercícios:</h4>
+        <ul>
+          @for (exercicio of treino.exercicio; track exercicio.id) {
+          <li>
+            <strong>{{ exercicio.nome }}</strong
+            >: <a *ngIf="exercicio.video" href="{{exercicio.video}}" target="_blank">Video</a>
+            <p>
+              {{ exercicio._joinData?.num_series }} x
+              {{ exercicio._joinData?.num_repeticoes }}
+            </p>
+          </li>
+          }
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    } } @else {
+    <p class="sem-treinos">Nenhum treino vinculado.</p>
+    }
+  </div>
+</div>
+
+<div class="agenda-container">
+  <h2>Agenda Semanal</h2>
+  <div class="agenda-semana">
+    @for (dia of diasDaSemana; track dia) {
+    <div class="agenda-dia">
+      <h3 class="agenda-dia-titulo">{{ dia.label }}</h3>
+      @if (agenda[dia.value]?.length) {
+      <div class="agenda-aulas">
+        @for (ocorrencia of agenda[dia.value]; track ocorrencia.id) {
+        <mat-card class="agenda-card">
+          <mat-card-header>
+            <mat-card-title>{{ ocorrencia.aula.nome }}</mat-card-title>
+            <mat-card-subtitle
+              >{{ ocorrencia.horario_inicial }} -
+              {{ ocorrencia.horario_final }}</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Profissional:</strong> {{ ocorrencia.profissional }}</p>
+            <p><strong>Vagas:</strong> {{ ocorrencia.vagas }}</p>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+      } @else {
+      <p class="agenda-sem-aulas">Nenhuma aula cadastrada.</p>
+      }
+    </div>
+    }
+  </div>
+</div>
+}

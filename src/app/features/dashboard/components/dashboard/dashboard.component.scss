@@ -1,108 +1,218 @@
 .title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 8px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 8px;
 }
 
 mat-card-content {
-    height: 300px;
+  height: 300px;
 }
 
 .schedule-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .schedule-card {
-    height: 30%;
-    background-color: var(--sys-primary-container);
+  height: 30%;
+  background-color: var(--sys-primary-container);
 
-    mat-card-content {
-        padding: 0.5rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
+  mat-card-content {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 
-        p {
-            margin: 0;
-            font-size: 12px;
+    p {
+      margin: 0;
+      font-size: 12px;
 
-            &:first-child {
-                text-align: center;
-                font-weight: bold;
-            }
+      &:first-child {
+        text-align: center;
+        font-weight: bold;
+      }
 
-            &:last-child {
-                text-decoration: underline;
-                text-align: end;
-            }
-        }
+      &:last-child {
+        text-decoration: underline;
+        text-align: end;
+      }
     }
+  }
 }
 
 .charts-container {
-    padding: 1rem;
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 1rem;
-    
-    @media screen and (max-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
-    }
-    
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1rem;
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+
+  .members-chart {
+    grid-column: 1 / span 2;
+
     @media screen and (max-width: 500px) {
-        grid-template-columns: 1fr;
+      grid-column: 1;
+    }
+  }
+
+  .defaulters-chart {
+    grid-column: 3;
+
+    @media screen and (max-width: 1024px) {
+      grid-column: 1;
+    }
+  }
+
+  .classes-chart {
+    grid-column: 1;
+
+    @media screen and (max-width: 1024px) {
+      grid-column: 2;
     }
 
-    .members-chart {
-        grid-column: 1 / span 2;
-        
-        @media screen and (max-width: 500px) {
-            grid-column: 1;
-        }
+    @media screen and (max-width: 500px) {
+      grid-column: 1;
+    }
+  }
 
+  .days-chart {
+    grid-column: 2;
+
+    @media screen and (max-width: 1024px) {
+      grid-column: 1;
+    }
+  }
+
+  .schedule {
+    grid-column: 3;
+
+    @media screen and (max-width: 1024px) {
+      grid-column: 2;
     }
 
-    .defaulters-chart {
-        grid-column: 3;
-
-        @media screen and (max-width: 1024px) {
-            grid-column: 1;
-        }
+    @media screen and (max-width: 500px) {
+      grid-column: 1;
     }
-    
-    .classes-chart {
-        grid-column: 1;
-
-        @media screen and (max-width: 1024px) {
-            grid-column: 2;
-        }
-        
-        @media screen and (max-width: 500px) {
-            grid-column: 1;
-        }
-    }
-    
-    .days-chart {
-        grid-column: 2;
-
-        @media screen and (max-width: 1024px) {
-            grid-column: 1;
-        }
-    }
-    
-    .schedule {
-        grid-column: 3;
-
-        @media screen and (max-width: 1024px) {
-            grid-column: 2;
-        }
-        
-        @media screen and (max-width: 500px) {
-            grid-column: 1;
-        }
-    }
+  }
 }
+
+.agenda-container {
+  padding: 1rem;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  mat-card-content {
+    height: auto;
+  }
+}
+
+.agenda-semana {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.agenda-dia {
+  flex: 1 1 calc(33.33% - 1rem); 
+  min-width: 300px;
+  background-color: #222;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.agenda-dia-titulo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.agenda-aulas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.agenda-card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+.mat-card-header {
+  background-color: #e0f7fa;
+  padding: 0.5rem;
+  border-bottom: 1px solid #b2ebf2;
+}
+
+.mat-card-content {
+  padding: 0.75rem 1rem;
+}
+
+.agenda-sem-aulas {
+  font-size: 0.9rem;
+  color: #757575;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.treinos-container {
+  padding: 1rem;
+  border-bottom: 1px solid #222;
+  margin: 1rem;
+}
+
+.treinos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.treino-card {
+  background-color: #222;
+  border: 1px solid var(--sys-primary-container);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.treino-card mat-card-header {
+  background-color: #222;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--sys-primary-container);
+}
+
+.treino-card mat-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.treino-card mat-card-content {
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.treinos-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sem-treinos {
+  color: #757575;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
