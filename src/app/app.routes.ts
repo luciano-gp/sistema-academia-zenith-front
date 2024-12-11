@@ -98,6 +98,22 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "aulas/editar/:id",
+    loadComponent: () =>
+      import(
+        "./features/classes/components/edit-class/edit-class.component"
+      ).then((m) => m.EditClassComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "aulas/novo",
+    loadComponent: () =>
+      import(
+        "./features/classes/components/create-class/create-class.component"
+      ).then((m) => m.CreateClassComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: "agendamentos",
     loadComponent: () =>
       import(

@@ -1,1 +1,41 @@
-<p>form-class works!</p>
+<div class="form-container">
+  <h2>{{ class()?.id ? "Editar" : "Nova" }} Aula</h2>
+
+  <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+    <!-- Nome -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" placeholder="Nome da aula" />
+        <mat-error *ngIf="classForm.get('nome')?.invalid">
+          O nome é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Descrição -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Descrição</mat-label>
+        <textarea
+          matInput
+          formControlName="descricao"
+          placeholder="Descrição da aula"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- Botões -->
+    <div class="buttons-container">
+      <button type="submit" mat-flat-button color="primary">Salvar</button>
+      <button
+        *ngIf="class()?.id"
+        mat-stroked-button
+        color="warn"
+        (click)="onDelete()"
+      >
+        Excluir
+      </button>
+    </div>
+  </form>
+</div>
