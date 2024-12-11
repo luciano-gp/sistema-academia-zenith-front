@@ -1,6 +1,11 @@
 import { NgIf } from "@angular/common";
 import { Component, inject, input, output, SimpleChanges } from "@angular/core";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -9,6 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { IClass } from "../../../classes/interfaces/IClass";
 import { IClassOccurrence } from "../../../classes/interfaces/IClassOccurrence";
+import { ClassService } from "../../../classes/services/class.service";
 
 @Component({
   selector: "app-form-schedule",
@@ -28,15 +34,16 @@ import { IClassOccurrence } from "../../../classes/interfaces/IClassOccurrence";
 })
 export class FormScheduleComponent {
   private _fb = inject(FormBuilder);
+  private _classService = inject(ClassService);
 
-  ocorrenciaAula = input<IClassOccurrence>();
+  schedule = input<IClassOccurrence>();
   done = output<IClassOccurrence>();
   delete = output<void>();
 
   aulas: IClass[] = [];
   diasDaSemana = [
     { value: "Segunda-feira", label: "Segunda-feira" },
-    { value: "Terca-feira", label: "Terça-feira" },
+    { value: "Terça-feira", label: "Terça-feira" },
     { value: "Quarta-feira", label: "Quarta-feira" },
     { value: "Quinta-feira", label: "Quinta-feira" },
     { value: "Sexta-feira", label: "Sexta-feira" },
@@ -55,18 +62,24 @@ export class FormScheduleComponent {
       horario_final: ["", Validators.required],
       profissional: ["", Validators.required],
     });
+    
+    this._loadAulas();
+  }
+
+  private async _loadAulas() {
+    this.aulas = await this._classService.getAll();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["ocorrenciaAula"]) {
-      this.ocorrenciaAulaForm.patchValue(this.ocorrenciaAula()!);
+    if (changes["schedule"]) {
+      this.ocorrenciaAulaForm.patchValue(this.schedule()!);
     }
   }
 
   async onSubmit() {
     if (this.ocorrenciaAulaForm.valid) {
       const ocorrenciaData: IClassOccurrence = {
-        ...this.ocorrenciaAula(),
+        ...this.schedule(),
         ...this.ocorrenciaAulaForm.value,
       };
       this.done.emit(ocorrenciaData);

@@ -1,1 +1,102 @@
-<p>form-schedule works!</p>
+<div class="form-container">
+  <h2>{{ schedule()?.id ? "Editar" : "Nova" }} Agendamento</h2>
+
+  <form [formGroup]="ocorrenciaAulaForm" (ngSubmit)="onSubmit()">
+    <!-- Aula -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Aula</mat-label>
+        <mat-select formControlName="ref_aula">
+          @for (aula of aulas; track aula.id) {
+          <mat-option [value]="aula.id">
+            {{ aula.nome }}
+          </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="ocorrenciaAulaForm.get('ref_aula')?.invalid">
+          A aula é obrigatória.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Dia da Semana -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Dia da Semana</mat-label>
+        <mat-select formControlName="dia_semana">
+          @for (dia of diasDaSemana; track dia.value) {
+          <mat-option [value]="dia.value">
+            {{ dia.label }}
+          </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="ocorrenciaAulaForm.get('dia_semana')?.invalid">
+          O dia da semana é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Vagas -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Vagas</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="vagas"
+          placeholder="Número de vagas"
+        />
+        <mat-error *ngIf="ocorrenciaAulaForm.get('vagas')?.invalid">
+          Insira um número válido para vagas.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Horário Inicial e Final -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Horário Inicial</mat-label>
+        <input matInput type="time" formControlName="horario_inicial" />
+        <mat-error *ngIf="ocorrenciaAulaForm.get('horario_inicial')?.invalid">
+          O horário inicial é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Horário Final</mat-label>
+        <input matInput type="time" formControlName="horario_final" />
+        <mat-error *ngIf="ocorrenciaAulaForm.get('horario_final')?.invalid">
+          O horário final é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Profissional -->
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Profissional</mat-label>
+        <input
+          matInput
+          formControlName="profissional"
+          placeholder="Nome do profissional"
+        />
+        <mat-error *ngIf="ocorrenciaAulaForm.get('profissional')?.invalid">
+          O nome do profissional é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Botões -->
+    <div class="buttons-container">
+      <button type="submit" mat-flat-button color="primary">Salvar</button>
+      <button
+        *ngIf="schedule()?.id"
+        mat-stroked-button
+        color="warn"
+        (click)="onDelete()"
+      >
+        Excluir
+      </button>
+    </div>
+  </form>
+</div>

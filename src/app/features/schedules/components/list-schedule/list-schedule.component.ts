@@ -4,7 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
-import moment from 'moment';
 import { IClassOccurrence } from '../../../classes/interfaces/IClassOccurrence';
 import { ScheduleService } from '../../services/schedule.service';
 
@@ -19,16 +18,12 @@ export class ListScheduleComponent {
   private _scheduleService = inject(ScheduleService);
   private _snackbar = inject(MatSnackBar);
 
-  displayedColumns: string[] = ['nome', 'horario', 'professor', 'vagas', 'actions'];
+  displayedColumns: string[] = ['nome', 'dia', 'horario', 'professor', 'vagas', 'actions'];
   dataSource = new MatTableDataSource<IClassOccurrence>([]);
 
   async ngOnInit() {
     const classes = await this._scheduleService.getAll();
     this.dataSource.data = classes;
-  }
-
-  protected formatHour(date: string) {
-    return moment(date).format('HH:mm');
   }
 
   protected async delete(id: number) {

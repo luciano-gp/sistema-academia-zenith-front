@@ -122,6 +122,22 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "agendamentos/editar/:id",
+    loadComponent: () =>
+      import(
+        "./features/schedules/components/edit-schedule/edit-schedule.component"
+      ).then((m) => m.EditScheduleComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "agendamentos/novo",
+    loadComponent: () =>
+      import(
+        "./features/schedules/components/create-schedule/create-schedule.component"
+      ).then((m) => m.CreateScheduleComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: "treinos",
     loadComponent: () =>
       import(
