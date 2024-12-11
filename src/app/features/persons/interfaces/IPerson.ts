@@ -1,5 +1,6 @@
 import { ICity } from "../../../core/interfaces/ICity";
 import { IUser } from "../../auth/interfaces/IUser";
+import { ITraining } from "../../trainings/interfaces/ITraining";
 
 export interface IPerson {
     id: number | null;
@@ -14,4 +15,5 @@ export interface IPerson {
     cidade: ICity;
     ref_usuario: number;
     ref_cidade: number;
+    treino: ITraining[];
 }

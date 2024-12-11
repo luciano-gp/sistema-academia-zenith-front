@@ -106,14 +106,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "exercicios",
-    loadComponent: () =>
-      import(
-        "./features/exercises/components/list-exercise/list-exercise.component"
-      ).then((m) => m.ListExerciseComponent),
-    canActivate: [AuthGuard],
-  },
-  {
     path: "treinos",
     loadComponent: () =>
       import(
